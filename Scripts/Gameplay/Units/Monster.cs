@@ -6,7 +6,7 @@ public class Monster : Unit
 {
 
 
-    public Monster(string name, List<DamageType> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<IEquippable> equipment, UnitBaseStats baseStats, UnitStats stats, int challengeRating, HashSet<ProficiencyType> proficiencies) : base(name, resistances, attacks, spells, inventory, equipment, baseStats, stats)
+    public Monster(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<IEquippable> equipment, UnitBaseStats baseStats, UnitStats stats, int challengeRating, HashSet<ProficiencyType> proficiencies) : base(name, resistances, attacks, spells, inventory, equipment, baseStats, stats)
     {
         ChallengeRating = challengeRating;
         Proficiencies = proficiencies;
