@@ -28,11 +28,6 @@ public class Damage : IDamage
 
     public int GetDamage()
     {
-        int amount = 0;
-        for (int i = 0; i < DiceAmount; i++)
-        {
-            amount += Dice.Roll(DiceType);
-        }
-        return amount + DamageBonus;
+        return Dice.Roll(DiceType, DiceAmount) + DamageBonus;
     }
 }

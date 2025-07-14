@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Xml.Serialization;
 
 public class PlayerCharacter : Unit, IExportable
 {
-    public PlayerCharacter(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<IEquippable> equipment, UnitBaseStats baseStats, UnitStats stats, int experience, List<CharacterClass> classes, List<SubClass> subClasses) : base(name, resistances, attacks, spells, inventory, equipment, baseStats, stats)
+    public PlayerCharacter(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory,
+    List<IEquippable> equipment, UnitBaseStats baseStats, UnitStats stats, int experience, List<CharacterClass> classes,
+    List<SubClass> subClasses) : base(name, resistances, attacks, spells, inventory, equipment, baseStats, stats)
     {
         Experience = experience;
         Classes = classes;
@@ -112,4 +115,5 @@ public class PlayerCharacter : Unit, IExportable
     {
         throw new NotImplementedException();
     }
+
 }

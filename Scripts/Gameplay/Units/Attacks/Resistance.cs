@@ -1,15 +1,18 @@
+using System.Xml.Serialization;
+
 public class Resistance
 {
-    public DamageType Type;
-    public bool IsImmunity;
-    public int Value;
+    [XmlElement]
+    public DamageType Type { get; init; }
+    [XmlElement]
+    public bool IsImmunity { get; init; }
 
-    public Resistance(DamageType type, bool isImmunity, int value)
+    public Resistance(DamageType type, bool isImmunity)
     {
         Type = type;
         IsImmunity = isImmunity;
-        Value = value;
     }
+
     public int GetResistanceDamage(int damage, DamageType type)
     {
         if (type != Type)
@@ -18,6 +21,6 @@ public class Resistance
         if (IsImmunity)
             return 0;
 
-        return Value / 2;
+        return damage / 2;
     }
 }

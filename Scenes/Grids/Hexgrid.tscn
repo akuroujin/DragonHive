@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb4loho8p4cfi"]
+
+[ext_resource type="Texture2D" uid="uid://dr38fwr17qhkf" path="res://Textures/Grids/Hexgrid.svg" id="1_w74ic"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 128.0
+offset_bottom = 128.0
+texture = ExtResource("1_w74ic")
+expand_mode = 1
