@@ -1,0 +1,5 @@
+enum TileType
+{
+    Square,
+    Hex
+}

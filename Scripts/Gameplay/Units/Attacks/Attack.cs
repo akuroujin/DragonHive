@@ -18,7 +18,7 @@ public class Attack : IExportable, IDamage
     }
 
     [XmlAttribute]
-    public string id
+    public string ID
     {
         get
         {
