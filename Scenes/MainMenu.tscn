@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://xvj1rsdq131a"]
+[gd_scene load_steps=2 format=3 uid="uid://xvj1rsdq131a"]
+
+[ext_resource type="Script" uid="uid://c3ic8e6j1y4vr" path="res://Scripts/Testing/XmlTest.cs" id="1_tt5f1"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,3 +11,12 @@ offset_right = 768.0
 offset_bottom = 432.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="FileDialog" type="FileDialog" parent="."]
+access = 2
+
+[node name="XMLTest" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_tt5f1")

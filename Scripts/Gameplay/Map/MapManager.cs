@@ -10,6 +10,7 @@ class MapManager
         }
     }
     private static MapManager _instace;
-
+    public IRange Selected;
+    public int CurrentRange { get { return Selected.GetRange(); } }
 
 }

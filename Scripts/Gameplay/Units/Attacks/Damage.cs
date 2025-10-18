@@ -1,6 +1,7 @@
 using System.Xml.Serialization;
 public class Damage : IDamage
 {
+    public Damage() : this(1, new Resistance()) { }
     public Damage(int damage, Resistance damageType)
     {
         DamageBonus = damage;

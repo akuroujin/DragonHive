@@ -4,13 +4,13 @@ using Godot;
 abstract partial class BaseTile : TextureRect
 {
     public TileCoord Coord;
-    public bool Selected { get; private set; }
     private int _currentRange;
     private TerrainType _currentTerrainType;
-    private List<BaseTile> _selectedTiles;
-    private List<BaseTile> _selectedBy;
+    protected List<BaseTile> _selectedTiles = new List<BaseTile>();
+    private List<BaseTile> _selectedBy = new List<BaseTile>();
+    public bool IsSelected { get { return _selectedBy.Count == 0; } }
 
-    public abstract void Initialize();
+    public abstract void Initialize(TileCoord coord);
 
     public void GetSelected(BaseTile tile)
     {
@@ -46,9 +46,9 @@ abstract partial class BaseTile : TextureRect
     }
     public void OnClick()
     {
-        if (Selected)
+        if (IsSelected)
         {
-            SelectTiles(5);
+            SelectTiles(MapManager.Instance.CurrentRange);
         }
         else
         {

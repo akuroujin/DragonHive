@@ -6,7 +6,7 @@ public enum BuffTypes
     Intelligence = BaseStatTypes.Intelligence,
     Wisdom = BaseStatTypes.Wisdom,
     Charisma = BaseStatTypes.Charisma,
-    WalkSpeek = StatTypes.WalkSpeed,
+    WalkSpeek = StatTypes.WalkDistance,
     Armorclass = StatTypes.Armorclass,
     Damage,
 }

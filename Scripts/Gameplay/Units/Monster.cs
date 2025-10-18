@@ -4,9 +4,7 @@ using System.Xml.Serialization;
 
 public class Monster : Unit
 {
-
-
-    public Monster(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<IEquippable> equipment, UnitBaseStats baseStats, UnitStats stats, int challengeRating, HashSet<ProficiencyType> proficiencies) : base(name, resistances, attacks, spells, inventory, equipment, baseStats, stats)
+    public Monster(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<Equipment> equipment, UnitBaseStats baseStats, UnitStats stats, int challengeRating, HashSet<ProficiencyType> proficiencies) : base(name, resistances, attacks, spells, inventory, equipment, baseStats, stats)
     {
         ChallengeRating = challengeRating;
         Proficiencies = proficiencies;
@@ -34,7 +32,7 @@ public class Monster : Unit
         throw new NotImplementedException();
     }
 
-    public override string ToXML()
+    public override string ToXML(string filePath)
     {
         throw new NotImplementedException();
     }

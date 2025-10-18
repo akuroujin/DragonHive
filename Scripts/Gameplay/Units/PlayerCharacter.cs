@@ -5,8 +5,15 @@ using System.Xml.Serialization;
 
 public class PlayerCharacter : Unit, IExportable
 {
+    public PlayerCharacter() : base("", new List<Resistance>(), new List<Attack>(), new List<Spell>(),
+       new List<Item>(), new List<Equipment>(), new UnitBaseStats(), new UnitStats())
+    {
+        Experience = 0;
+        Classes = new List<CharacterClass>();
+        SubClasses = new List<SubClass>();
+    }
     public PlayerCharacter(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory,
-    List<IEquippable> equipment, UnitBaseStats baseStats, UnitStats stats, int experience, List<CharacterClass> classes,
+    List<Equipment> equipment, UnitBaseStats baseStats, UnitStats stats, int experience, List<CharacterClass> classes,
     List<SubClass> subClasses) : base(name, resistances, attacks, spells, inventory, equipment, baseStats, stats)
     {
         Experience = experience;
@@ -36,8 +43,8 @@ public class PlayerCharacter : Unit, IExportable
 
     #endregion
     private bool isDowned => this[StatTypes.CurrentHealth] <= 0;
-    private int DeathFailCount = 0;
-    private int DeathSuccessCount = 0;
+    private int deathFailCount = 0;
+    private int deathSuccessCount = 0;
 
 
 
@@ -58,23 +65,23 @@ public class PlayerCharacter : Unit, IExportable
         switch (roll)
         {
             case 1:
-                DeathFailCount += 2;
+                deathFailCount += 2;
                 break;
             case 20:
                 Revive();
                 break;
             case < 10:
-                DeathFailCount++;
+                deathFailCount++;
                 break;
             case > 10:
-                DeathSuccessCount++;
+                deathSuccessCount++;
                 break;
             default:
                 break;
         }
-        if (DeathFailCount >= 3)
+        if (deathFailCount >= 3)
             Die();
-        if (DeathSuccessCount >= 3)
+        if (deathSuccessCount >= 3)
             Revive();
     }
     protected override void Heal(int heal)
@@ -89,8 +96,8 @@ public class PlayerCharacter : Unit, IExportable
 
     private void Revive()
     {
-        DeathFailCount = 0;
-        DeathSuccessCount = 0;
+        deathFailCount = 0;
+        deathSuccessCount = 0;
         base.Heal(1);
     }
     protected override void TakeDamage(int damage)
@@ -106,12 +113,13 @@ public class PlayerCharacter : Unit, IExportable
         return base.GetSaveRoll(stat);
     }
 
+    //TODO: Implement export/import
     public override IExportable Import(string filePath)
     {
         throw new NotImplementedException();
     }
 
-    public override string ToXML()
+    public override string ToXML(string filePath)
     {
         throw new NotImplementedException();
     }

@@ -21,7 +21,7 @@ public class ElementType : IExportable
         throw new System.NotImplementedException();
     }
 
-    public string ToXML()
+    public string ToXML(string filePath)
     {
         throw new System.NotImplementedException();
     }

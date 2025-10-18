@@ -3,6 +3,7 @@ using Godot;
 
 class GridManager
 {
+    public Control parent;
     private GridManager() { }
     public Dictionary<TileCoord, BaseTile> Tiles;
     private int _width;
@@ -18,8 +19,9 @@ class GridManager
         Width
     }
 
-    private int _heightAmount;
-    private int _widthAmount;
+    public int HeightAmount { get; private set; }
+    public int WidthAmount { get; private set; }
+
 
     public float TileSize { get; private set; }
     public float TileWidth
@@ -50,25 +52,25 @@ class GridManager
             }
         }
     }
-    public static TileType TileType;
+    public TileType TileType;
 
     public void SetAmount(int amount, AmountType type)
     {
 
         if (type == AmountType.Height)
         {
-            _heightAmount = amount;
-            TileSize = _height / _heightAmount;
-            GD.Print(_height / _heightAmount);
-            _widthAmount = (int)(_width / TileWidth);
+            HeightAmount = amount;
+            TileSize = _height / HeightAmount;
+            GD.Print(_height / HeightAmount);
+            WidthAmount = (int)(_width / TileWidth);
         }
         if (type == AmountType.Width)
         {
-            _widthAmount = amount;
-            TileSize = _width / _widthAmount;
+            WidthAmount = amount;
+            TileSize = _width / WidthAmount;
 
-            GD.Print((float)_width / _widthAmount);
-            _heightAmount = (int)(_height / TileHeight);
+            GD.Print((float)_width / WidthAmount);
+            HeightAmount = (int)(_height / TileHeight);
         }
     }
 
@@ -83,7 +85,7 @@ class GridManager
     }
     public void GenerateTiles()
     {
-        TileSize = _width / _widthAmount;
+        TileSize = _width / WidthAmount;
 
     }
     public void DestroyTiles()

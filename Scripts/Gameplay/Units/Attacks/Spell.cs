@@ -3,9 +3,10 @@ using System.Xml.Serialization;
 
 public class Spell : Attack
 {
+    public Spell() : this("hit", "hits enemy", [new Damage()], 5, 1, true, false, false, BaseStatTypes.Intelligence, 2, 1, 2, [new Element()], 2, 5) { }
     public Spell(string name, string description, List<Damage> damages, int range, int radius, bool isAction, bool isBonusAction, bool
         isReaction, BaseStatTypes statTypes, int level, int castTime, int duration, List<Element> elements, int amount, int ubiCost,
-        bool isHealing, LimitType limitType, int limitAmount, int refillAmount)
+        bool isHealing = false, LimitType limitType = LimitType.None, int limitAmount = 0, int refillAmount = 0)
     : base(name, description, damages, range, radius, isAction, isBonusAction, isReaction, statTypes)
     {
         Level = level;

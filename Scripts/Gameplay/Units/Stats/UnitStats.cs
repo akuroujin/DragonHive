@@ -5,14 +5,16 @@ using System.Linq;
 [Serializable]
 public class UnitStats
 {
+    public UnitStats() : this(30, 50, 30, 14) { }
     public UnitStats(int maxUbi, int maxHealth, int walkspeed, int armorClass)
     {
         this[StatTypes.MaxUbi] = maxUbi;
         this[StatTypes.MaxHealth] = maxHealth;
-        this[StatTypes.WalkSpeed] = walkspeed;
+        this[StatTypes.WalkDistance] = walkspeed;
         this[StatTypes.Armorclass] = armorClass;
         this[StatTypes.CurrentUbi] = maxUbi;
         this[StatTypes.CurrentHealth] = maxHealth;
+        this[StatTypes.RemainingWalkDistance] = walkspeed;
         this[StatTypes.TempHealth] = 0;
         this[StatTypes.Initiative] = 0;
     }

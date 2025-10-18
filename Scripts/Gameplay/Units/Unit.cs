@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-public abstract class Unit : ITurnPhases, IExportable
+public abstract class Unit : ITurnPhases, IExportable, IRange
 {
-
-    protected Unit(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<IEquippable> equipment, UnitBaseStats baseStats, UnitStats stats)
+    protected Unit(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<Equipment> equipment, UnitBaseStats baseStats, UnitStats stats)
     {
         Name = name;
         Resistances = resistances;
@@ -32,7 +31,7 @@ public abstract class Unit : ITurnPhases, IExportable
         }
     }
     [XmlElement]
-    public string Name { get; private set; }
+    public string Name { get; set; }
 
     [XmlArray]
     [XmlArrayItem("Resistance")]
@@ -40,29 +39,27 @@ public abstract class Unit : ITurnPhases, IExportable
 
     [XmlArray]
     [XmlArrayItem("Attack")]
-    public List<Attack> Attacks { get; private set; }
+    public List<Attack> Attacks { get; set; }
 
 
     [XmlArray]
     [XmlArrayItem("Spell")]
-    public List<Spell> Spells { get; private set; }
+    public List<Spell> Spells { get; set; }
 
     [XmlArray]
     [XmlArrayItem("Item")]
-    public List<Item> Inventory { get; private set; }
+    public List<Item> Inventory { get; set; }
 
+    [XmlIgnore]
     [XmlArray("Equipments")]
     [XmlArrayItem("Equipment")]
-    public List<IEquippable> Equipment { get; private set; }
-
-
+    public List<Equipment> Equipment { get; set; }
     private UnitBaseStats _baseStats;
-    [XmlArray("BaseStats")]
-    [XmlArrayItem("BaseStat")]
+    [XmlElement]
     public UnitBaseStats BaseStats
     {
         get => _baseStats;
-        private set => _baseStats = value;
+        set => _baseStats = value;
     }
     [XmlIgnore]
     public int this[BaseStatTypes stat]
@@ -72,12 +69,11 @@ public abstract class Unit : ITurnPhases, IExportable
     }
 
     private UnitStats _stats;
-    [XmlArray("Stats")]
-    [XmlArrayItem("Stat")]
+    [XmlElement]
     public UnitStats Stats
     {
         get => _stats;
-        private set => _stats = value;
+        set => _stats = value;
     }
     [XmlIgnore]
     public int this[StatTypes stat]
@@ -216,7 +212,12 @@ public abstract class Unit : ITurnPhases, IExportable
 
     public abstract IExportable Import(string filePath);
 
-    public abstract string ToXML();
+    public abstract string ToXML(string filePath);
+
+    public int GetRange()
+    {
+        return Stats[StatTypes.RemainingWalkDistance];
+    }
 
     #endregion
 }

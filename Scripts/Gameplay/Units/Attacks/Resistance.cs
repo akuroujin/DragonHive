@@ -2,16 +2,18 @@ using System.Xml.Serialization;
 
 public class Resistance
 {
+    public Resistance() : this(DamageType.Slashing) { }
+    public Resistance(DamageType type, bool isImmunity = false)
+    {
+        Type = type;
+        IsImmunity = isImmunity;
+    }
     [XmlElement]
     public DamageType Type { get; init; }
     [XmlElement]
     public bool IsImmunity { get; init; }
 
-    public Resistance(DamageType type, bool isImmunity)
-    {
-        Type = type;
-        IsImmunity = isImmunity;
-    }
+
 
     public int GetResistanceDamage(int damage, DamageType type)
     {

@@ -2,10 +2,11 @@ public enum StatTypes : int
 {
     MaxUbi,
     MaxHealth,
-    WalkSpeed,
+    WalkDistance,
     Armorclass,
     Initiative,
     CurrentUbi,
     CurrentHealth,
+    RemainingWalkDistance,
     TempHealth
 }

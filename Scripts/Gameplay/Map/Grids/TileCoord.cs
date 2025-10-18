@@ -9,7 +9,7 @@ public abstract class TileCoord
 
     public static readonly TileCoord[] Direction;
     /// <summary>
-    /// Returns the length of the line of a hex
+    /// Returns the length of the line to a tile
     /// </summary>
     /// <param name="coord"></param>
     /// <returns></returns>

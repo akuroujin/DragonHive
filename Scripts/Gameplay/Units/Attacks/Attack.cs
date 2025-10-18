@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 [XmlRoot("Attack")]
 public class Attack : IExportable, IDamage
 {
+    public Attack() : this("hit", "hits enemy", [new Damage()], 5, 1, true, false, false, BaseStatTypes.Strength) { }
     public Attack(string name, string description, List<Damage> damages, int range, int radius, bool isAction,
         bool isBonusAction, bool isReaction, BaseStatTypes statTypes)
     {
@@ -35,8 +36,8 @@ public class Attack : IExportable, IDamage
     public string Description { get; init; }
 
 
-    [XmlArray("damages")]
-    [XmlArrayItem("damage")]
+    [XmlArray("Damages")]
+    [XmlArrayItem("Damage")]
     public List<Damage> Damages { get; init; }
 
     [XmlElement]
@@ -68,7 +69,7 @@ public class Attack : IExportable, IDamage
         return amount;
     }
 
-    public string ToXML()
+    public string ToXML(string filePath)
     {
         throw new System.NotImplementedException();
     }

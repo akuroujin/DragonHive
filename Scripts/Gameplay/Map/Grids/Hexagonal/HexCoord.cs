@@ -52,8 +52,8 @@ public class HexCoord : TileCoord
         SW,
         SE
     }
-    #region Methods
 
+    #region Methods
     public override Vector2 ToPosition(float size)
     {
         // float x = R % 2 * size * 0.9f / 2 + Q * size * 0.9f;
@@ -130,6 +130,13 @@ public class HexCoord : TileCoord
         }
         return reachable;
     }
+
+    public static List<TileCoord> GenerateTiles()
+    {
+        //
+        return null;
+    }
+
     #endregion
 
     #region Operators

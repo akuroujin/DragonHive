@@ -5,6 +5,7 @@ using System.Linq;
 [Serializable]
 public class UnitBaseStats
 {
+    public UnitBaseStats() : this(10, 10, 10, 10, 10, 10) { }
     public UnitBaseStats(int str, int dex, int con, int intel, int wis, int cha)
     {
         this[BaseStatTypes.Strength] = str;
