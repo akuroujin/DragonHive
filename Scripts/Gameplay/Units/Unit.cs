@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 public abstract class Unit : ITurnPhases, IExportable, IRange
 {
-    protected Unit(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<Equipment> equipment, UnitBaseStats baseStats, UnitStats stats)
+    protected Unit(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<Equipment> equipment, AbilityScores baseStats, BaseStats stats)
     {
         Name = name;
         Resistances = resistances;
@@ -13,14 +13,13 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
         Spells = spells;
         Inventory = inventory;
         this.Equipment = equipment;
-        BaseStats = baseStats;
-        Stats = stats;
+        AbilityScores = baseStats;
+        BaseStats = stats;
     }
 
     #region Properties
 
-    [XmlAttribute]
-    public string id
+    public string UID
     {
         get
         {
@@ -30,56 +29,46 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
             return value;
         }
     }
-    [XmlElement]
+
+
     public string Name { get; set; }
 
-    [XmlArray]
-    [XmlArrayItem("Resistance")]
     private List<Resistance> Resistances;
 
-    [XmlArray]
-    [XmlArrayItem("Attack")]
     public List<Attack> Attacks { get; set; }
 
-
-    [XmlArray]
-    [XmlArrayItem("Spell")]
     public List<Spell> Spells { get; set; }
-
-    [XmlArray]
-    [XmlArrayItem("Item")]
     public List<Item> Inventory { get; set; }
-
-    [XmlIgnore]
-    [XmlArray("Equipments")]
-    [XmlArrayItem("Equipment")]
     public List<Equipment> Equipment { get; set; }
-    private UnitBaseStats _baseStats;
-    [XmlElement]
-    public UnitBaseStats BaseStats
+    private AbilityScores _abilityScores;
+    public AbilityScores AbilityScores
+    {
+        get => _abilityScores;
+        private set => _abilityScores = value;
+    }
+    public int this[AbilityScoreTypes stat]
+    {
+        get => _abilityScores[stat];
+        protected set => _abilityScores[stat] = value;
+    }
+
+    private BaseStats _baseStats;
+    public BaseStats BaseStats
     {
         get => _baseStats;
         set => _baseStats = value;
     }
-    [XmlIgnore]
     public int this[BaseStatTypes stat]
     {
         get => _baseStats[stat];
         protected set => _baseStats[stat] = value;
     }
+    private CombatStats _combatStats;
 
-    private UnitStats _stats;
-    [XmlElement]
-    public UnitStats Stats
+    public int this[CombatStatTypes stat]
     {
-        get => _stats;
-        set => _stats = value;
-    }
-    [XmlIgnore]
-    public int this[StatTypes stat]
-    {
-        get => _stats[stat];
-        protected set => _stats[stat] = value;
+        get => _combatStats[stat];
+        protected set => _combatStats[stat] = value;
     }
 
     bool _didAction = false;
@@ -105,21 +94,21 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
 
     public int GetPassiveProficiency(ProficiencyType proficiencyType)
     {
-        return 10 + (this[(BaseStatTypes)proficiencyType] - 10) / 2;
+        return 10 + (this[(AbilityScoreTypes)proficiencyType] - 10) / 2;
     }
-    public int GetStatRoll(BaseStatTypes stat)
+    public int GetStatRoll(AbilityScoreTypes stat)
     {
         return Dice.Roll(DiceTypes.D20) + (this[stat] - 10) / 2;
     }
-    public virtual int GetSaveRoll(BaseStatTypes stat)
+    public virtual int GetSaveRoll(AbilityScoreTypes stat)
     {
         return Dice.Roll(DiceTypes.D20) + this[stat] - 10;
     }
     protected virtual void Heal(int heal)
     {
-        this[StatTypes.CurrentHealth] += heal;
-        if (this[StatTypes.CurrentHealth] > this[StatTypes.MaxHealth])
-            this[StatTypes.CurrentHealth] = this[StatTypes.MaxHealth];
+        this[CombatStatTypes.CurrentHealth] += heal;
+        if (this[CombatStatTypes.CurrentHealth] > this[BaseStatTypes.MaxHealth])
+            this[CombatStatTypes.CurrentHealth] = this[BaseStatTypes.MaxHealth];
     }
 
     protected virtual void TakeDamage(int damage)
@@ -129,19 +118,19 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
             Heal(damage);
             return;
         }
-        if (damage > _stats[StatTypes.CurrentHealth])
+        if (damage > this[CombatStatTypes.CurrentHealth])
         {
             Die();
             return;
         }
-        if (this[StatTypes.TempHealth] > 0)
+        if (this[CombatStatTypes.TempHealth] > 0)
         {
-            this[StatTypes.TempHealth] -= damage;
-            damage = -this[StatTypes.TempHealth];
-            if (this[StatTypes.TempHealth] >= 0)
+            this[CombatStatTypes.TempHealth] -= damage;
+            damage = -this[CombatStatTypes.TempHealth];
+            if (this[CombatStatTypes.TempHealth] >= 0)
                 return;
         }
-        this[StatTypes.CurrentHealth] -= damage;
+        this[CombatStatTypes.CurrentHealth] -= damage;
     }
 
     public void TakeOtherDamage(int damage, string reason)
@@ -170,7 +159,7 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
     {
         int roll = Dice.Roll(DiceTypes.D20);
         int statroll = roll + GetStatRoll(attack.statType);
-        if (statroll < enemy[StatTypes.Armorclass])
+        if (statroll < enemy[BaseStatTypes.ArmorClass])
         {
             return;
         }
@@ -216,7 +205,7 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
 
     public int GetRange()
     {
-        return Stats[StatTypes.RemainingWalkDistance];
+        return this[CombatStatTypes.RemainingWalkDistance];
     }
 
     #endregion

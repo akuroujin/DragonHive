@@ -2,15 +2,15 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Linq;
 
-public class Equipment : Item, IEquippable
+public class Equipment : ItemEntry, IEquippable
 {
-    public Equipment() : this("Equipment", "Desc", new Money(), 10, 1, ["prop"], []) { }
-    public Equipment(string name, string description, Money price, int weight, int amount,
+    public Equipment() : this("Equipment", "Desc", new Money(), 10, ["prop"], []) { }
+    public Equipment(string name, string description, Money price, int weight,
     List<string> properties, Dictionary<ProficiencyType, RollType> proficiencyModifiers) :
-     base(name, description, price, weight, amount)
+     base(name, description, price, weight)
     {
         Properties = properties;
-
+        ProficiencyModifiers = proficiencyModifiers;
     }
 
     [XmlArray]
@@ -20,19 +20,8 @@ public class Equipment : Item, IEquippable
     [XmlArrayItem("Modifier")]
     public List<ProficiencyModifier> ProficiencyModifiersSerializable
     {
-        get
-        {
-            return ProficiencyModifiers?.Select(kvp => new ProficiencyModifier
-            {
-                Type = kvp.Key,
-                RollType = kvp.Value
-            }).ToList() ?? new List<ProficiencyModifier>();
-        }
-        set
-        {
-            ProficiencyModifiers = value?.ToDictionary(x => x.Type, x => x.RollType)
-                ?? new Dictionary<ProficiencyType, RollType>();
-        }
+        get;
+        set;
     }
 
     [XmlIgnore]

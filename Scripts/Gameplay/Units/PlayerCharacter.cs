@@ -5,15 +5,8 @@ using System.Xml.Serialization;
 
 public class PlayerCharacter : Unit, IExportable
 {
-    public PlayerCharacter() : base("", new List<Resistance>(), new List<Attack>(), new List<Spell>(),
-       new List<Item>(), new List<Equipment>(), new UnitBaseStats(), new UnitStats())
-    {
-        Experience = 0;
-        Classes = new List<CharacterClass>();
-        SubClasses = new List<SubClass>();
-    }
     public PlayerCharacter(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory,
-    List<Equipment> equipment, UnitBaseStats baseStats, UnitStats stats, int experience, List<CharacterClass> classes,
+    List<Equipment> equipment, AbilityScores baseStats, BaseStats stats, int experience, List<CharacterClass> classes,
     List<SubClass> subClasses) : base(name, resistances, attacks, spells, inventory, equipment, baseStats, stats)
     {
         Experience = experience;
@@ -42,7 +35,7 @@ public class PlayerCharacter : Unit, IExportable
     public int ProficiencyBonus => 2 + (CharacterLevel - 1) / 4;
 
     #endregion
-    private bool isDowned => this[StatTypes.CurrentHealth] <= 0;
+    private bool isDowned => this[CombatStatTypes.CurrentHealth] <= 0;
     private int deathFailCount = 0;
     private int deathSuccessCount = 0;
 
@@ -50,7 +43,7 @@ public class PlayerCharacter : Unit, IExportable
 
     public override int GetProficiencyRoll(ProficiencyType proficiencyType)
     {
-        int roll = GetStatRoll((BaseStatTypes)proficiencyType);
+        int roll = GetStatRoll((AbilityScoreTypes)proficiencyType);
         int value = roll;
         if (Classes[0].Proficiencies.Contains(proficiencyType))
             value += ProficiencyBonus;
@@ -108,7 +101,7 @@ public class PlayerCharacter : Unit, IExportable
             DeathThrow();
         }
     }
-    public override int GetSaveRoll(BaseStatTypes stat)
+    public override int GetSaveRoll(AbilityScoreTypes stat)
     {
         return base.GetSaveRoll(stat);
     }

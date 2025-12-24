@@ -1,9 +1,9 @@
-public enum BaseStatTypes
+public enum BaseStatTypes : int
 {
-    Strength,
-    Dexterity,
-    Constitution,
-    Intelligence,
-    Wisdom,
-    Charisma
+    MaxHealth,
+    MaxUbi,
+    WalkDistance,
+    SwimmingDistance,
+    ArmorClass,
+    Initiative
 }

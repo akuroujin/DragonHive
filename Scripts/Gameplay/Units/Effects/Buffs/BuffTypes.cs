@@ -1,12 +1,12 @@
 public enum BuffTypes
 {
-    Strength = BaseStatTypes.Strength,
-    Dexterity = BaseStatTypes.Dexterity,
-    Constitution = BaseStatTypes.Constitution,
-    Intelligence = BaseStatTypes.Intelligence,
-    Wisdom = BaseStatTypes.Wisdom,
-    Charisma = BaseStatTypes.Charisma,
-    WalkSpeek = StatTypes.WalkDistance,
-    Armorclass = StatTypes.Armorclass,
+    Strength = AbilityScoreTypes.Strength,
+    Dexterity = AbilityScoreTypes.Dexterity,
+    Constitution = AbilityScoreTypes.Constitution,
+    Intelligence = AbilityScoreTypes.Intelligence,
+    Wisdom = AbilityScoreTypes.Wisdom,
+    Charisma = AbilityScoreTypes.Charisma,
+    WalkSpeek = BaseStatTypes.WalkDistance,
+    Armorclass = BaseStatTypes.ArmorClass,
     Damage,
 }

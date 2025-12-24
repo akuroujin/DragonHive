@@ -4,9 +4,9 @@ using System.Xml.Serialization;
 [XmlRoot("Attack")]
 public class Attack : IExportable, IDamage
 {
-    public Attack() : this("hit", "hits enemy", [new Damage()], 5, 1, true, false, false, BaseStatTypes.Strength) { }
+    public Attack() : this("hit", "hits enemy", [new Damage()], 5, 1, true, false, false, AbilityScoreTypes.Strength) { }
     public Attack(string name, string description, List<Damage> damages, int range, int radius, bool isAction,
-        bool isBonusAction, bool isReaction, BaseStatTypes statTypes)
+        bool isBonusAction, bool isReaction, AbilityScoreTypes statTypes)
     {
         Name = name;
         Description = description;
@@ -57,7 +57,7 @@ public class Attack : IExportable, IDamage
     public bool IsReaction { get; init; }
 
     [XmlElement]
-    public BaseStatTypes statType { get; set; }
+    public AbilityScoreTypes statType { get; set; }
 
     public virtual int GetDamage()
     {

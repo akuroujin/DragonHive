@@ -2,199 +2,199 @@
 <PlayerCharacter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Tester1</Name>
   <Attacks>
-    <Attack>
-      <Name>hit</Name>
-      <Description>hits enemy</Description>
-      <Damages>
-        <Damage>
-          <DiceAmount>2</DiceAmount>
-          <DiceType>D6</DiceType>
-          <DamageBonus>5</DamageBonus>
-          <DamageType>
-            <Type>Piercing</Type>
-            <IsImmunity>false</IsImmunity>
-          </DamageType>
-        </Damage>
-      </Damages>
-      <Range>5</Range>
-      <IsAction>true</IsAction>
-      <IsBonusAction>false</IsBonusAction>
-      <IsReaction>false</IsReaction>
-      <statType>Strength</statType>
-    </Attack>
-    <Attack>
-      <Name>hit</Name>
-      <Description>hits enemy</Description>
-      <Damages>
-        <Damage>
-          <DiceAmount>0</DiceAmount>
-          <DiceType>FLAT</DiceType>
-          <DamageBonus>1</DamageBonus>
-          <DamageType>
-            <Type>Slashing</Type>
-            <IsImmunity>false</IsImmunity>
-          </DamageType>
-        </Damage>
-      </Damages>
-      <Range>5</Range>
-      <IsAction>true</IsAction>
-      <IsBonusAction>false</IsBonusAction>
-      <IsReaction>false</IsReaction>
-      <statType>Strength</statType>
-    </Attack>
+	<Attack>
+	  <Name>hit</Name>
+	  <Description>hits enemy</Description>
+	  <Damages>
+		<Damage>
+		  <DiceAmount>2</DiceAmount>
+		  <DiceType>D6</DiceType>
+		  <DamageBonus>5</DamageBonus>
+		  <DamageType>
+			<Type>Piercing</Type>
+			<IsImmunity>false</IsImmunity>
+		  </DamageType>
+		</Damage>
+	  </Damages>
+	  <Range>5</Range>
+	  <IsAction>true</IsAction>
+	  <IsBonusAction>false</IsBonusAction>
+	  <IsReaction>false</IsReaction>
+	  <statType>Strength</statType>
+	</Attack>
+	<Attack>
+	  <Name>hit</Name>
+	  <Description>hits enemy</Description>
+	  <Damages>
+		<Damage>
+		  <DiceAmount>0</DiceAmount>
+		  <DiceType>FLAT</DiceType>
+		  <DamageBonus>1</DamageBonus>
+		  <DamageType>
+			<Type>Slashing</Type>
+			<IsImmunity>false</IsImmunity>
+		  </DamageType>
+		</Damage>
+	  </Damages>
+	  <Range>5</Range>
+	  <IsAction>true</IsAction>
+	  <IsBonusAction>false</IsBonusAction>
+	  <IsReaction>false</IsReaction>
+	  <statType>Strength</statType>
+	</Attack>
   </Attacks>
   <Spells>
-    <Spell>
-      <Name>hit</Name>
-      <Description>hits enemy</Description>
-      <Damages>
-        <Damage>
-          <DiceAmount>2</DiceAmount>
-          <DiceType>D6</DiceType>
-          <DamageBonus>5</DamageBonus>
-          <DamageType>
-            <Type>Piercing</Type>
-            <IsImmunity>false</IsImmunity>
-          </DamageType>
-        </Damage>
-      </Damages>
-      <Range>5</Range>
-      <IsAction>true</IsAction>
-      <IsBonusAction>false</IsBonusAction>
-      <IsReaction>false</IsReaction>
-      <statType>Strength</statType>
-      <Level>2</Level>
-      <CastTime>1</CastTime>
-      <Duration>2</Duration>
-      <Elements>
-        <CurrentStacks>0</CurrentStacks>
-        <DurationLeft>0</DurationLeft>
-      </Elements>
-      <Amount>2</Amount>
-      <UbiCost>5</UbiCost>
-      <IsHealing>false</IsHealing>
-      <LimitType>None</LimitType>
-      <LimitAmount>0</LimitAmount>
-      <RefillAmount>0</RefillAmount>
-    </Spell>
-    <Spell>
-      <Name>hit</Name>
-      <Description>hits enemy</Description>
-      <Damages>
-        <Damage>
-          <DiceAmount>0</DiceAmount>
-          <DiceType>FLAT</DiceType>
-          <DamageBonus>1</DamageBonus>
-          <DamageType>
-            <Type>Slashing</Type>
-            <IsImmunity>false</IsImmunity>
-          </DamageType>
-        </Damage>
-      </Damages>
-      <Range>5</Range>
-      <IsAction>true</IsAction>
-      <IsBonusAction>false</IsBonusAction>
-      <IsReaction>false</IsReaction>
-      <statType>Strength</statType>
-      <Level>2</Level>
-      <CastTime>1</CastTime>
-      <Duration>2</Duration>
-      <Elements>
-        <CurrentStacks>0</CurrentStacks>
-        <DurationLeft>0</DurationLeft>
-      </Elements>
-      <Amount>2</Amount>
-      <UbiCost>5</UbiCost>
-      <IsHealing>false</IsHealing>
-      <LimitType>None</LimitType>
-      <LimitAmount>0</LimitAmount>
-      <RefillAmount>0</RefillAmount>
-    </Spell>
-    <Spell>
-      <Name>hit</Name>
-      <Description>hits enemy</Description>
-      <Damages>
-        <Damage>
-          <DiceAmount>0</DiceAmount>
-          <DiceType>FLAT</DiceType>
-          <DamageBonus>1</DamageBonus>
-          <DamageType>
-            <Type>Slashing</Type>
-            <IsImmunity>false</IsImmunity>
-          </DamageType>
-        </Damage>
-      </Damages>
-      <Range>5</Range>
-      <IsAction>true</IsAction>
-      <IsBonusAction>false</IsBonusAction>
-      <IsReaction>false</IsReaction>
-      <statType>Strength</statType>
-      <Level>2</Level>
-      <CastTime>1</CastTime>
-      <Duration>2</Duration>
-      <Elements>
-        <CurrentStacks>0</CurrentStacks>
-        <DurationLeft>0</DurationLeft>
-      </Elements>
-      <Amount>2</Amount>
-      <UbiCost>5</UbiCost>
-      <IsHealing>false</IsHealing>
-      <LimitType>None</LimitType>
-      <LimitAmount>0</LimitAmount>
-      <RefillAmount>0</RefillAmount>
-    </Spell>
+	<Spell>
+	  <Name>hit</Name>
+	  <Description>hits enemy</Description>
+	  <Damages>
+		<Damage>
+		  <DiceAmount>2</DiceAmount>
+		  <DiceType>D6</DiceType>
+		  <DamageBonus>5</DamageBonus>
+		  <DamageType>
+			<Type>Piercing</Type>
+			<IsImmunity>false</IsImmunity>
+		  </DamageType>
+		</Damage>
+	  </Damages>
+	  <Range>5</Range>
+	  <IsAction>true</IsAction>
+	  <IsBonusAction>false</IsBonusAction>
+	  <IsReaction>false</IsReaction>
+	  <statType>Strength</statType>
+	  <Level>2</Level>
+	  <CastTime>1</CastTime>
+	  <Duration>2</Duration>
+	  <Elements>
+		<CurrentStacks>0</CurrentStacks>
+		<DurationLeft>0</DurationLeft>
+	  </Elements>
+	  <Amount>2</Amount>
+	  <UbiCost>5</UbiCost>
+	  <IsHealing>false</IsHealing>
+	  <LimitType>None</LimitType>
+	  <LimitAmount>0</LimitAmount>
+	  <RefillAmount>0</RefillAmount>
+	</Spell>
+	<Spell>
+	  <Name>hit</Name>
+	  <Description>hits enemy</Description>
+	  <Damages>
+		<Damage>
+		  <DiceAmount>0</DiceAmount>
+		  <DiceType>FLAT</DiceType>
+		  <DamageBonus>1</DamageBonus>
+		  <DamageType>
+			<Type>Slashing</Type>
+			<IsImmunity>false</IsImmunity>
+		  </DamageType>
+		</Damage>
+	  </Damages>
+	  <Range>5</Range>
+	  <IsAction>true</IsAction>
+	  <IsBonusAction>false</IsBonusAction>
+	  <IsReaction>false</IsReaction>
+	  <statType>Strength</statType>
+	  <Level>2</Level>
+	  <CastTime>1</CastTime>
+	  <Duration>2</Duration>
+	  <Elements>
+		<CurrentStacks>0</CurrentStacks>
+		<DurationLeft>0</DurationLeft>
+	  </Elements>
+	  <Amount>2</Amount>
+	  <UbiCost>5</UbiCost>
+	  <IsHealing>false</IsHealing>
+	  <LimitType>None</LimitType>
+	  <LimitAmount>0</LimitAmount>
+	  <RefillAmount>0</RefillAmount>
+	</Spell>
+	<Spell>
+	  <Name>hit</Name>
+	  <Description>hits enemy</Description>
+	  <Damages>
+		<Damage>
+		  <DiceAmount>0</DiceAmount>
+		  <DiceType>FLAT</DiceType>
+		  <DamageBonus>1</DamageBonus>
+		  <DamageType>
+			<Type>Slashing</Type>
+			<IsImmunity>false</IsImmunity>
+		  </DamageType>
+		</Damage>
+	  </Damages>
+	  <Range>5</Range>
+	  <IsAction>true</IsAction>
+	  <IsBonusAction>false</IsBonusAction>
+	  <IsReaction>false</IsReaction>
+	  <statType>Strength</statType>
+	  <Level>2</Level>
+	  <CastTime>1</CastTime>
+	  <Duration>2</Duration>
+	  <Elements>
+		<CurrentStacks>0</CurrentStacks>
+		<DurationLeft>0</DurationLeft>
+	  </Elements>
+	  <Amount>2</Amount>
+	  <UbiCost>5</UbiCost>
+	  <IsHealing>false</IsHealing>
+	  <LimitType>None</LimitType>
+	  <LimitAmount>0</LimitAmount>
+	  <RefillAmount>0</RefillAmount>
+	</Spell>
   </Spells>
   <Inventory>
-    <Item>
-      <Name>TestItem</Name>
-      <Description>Test the item</Description>
-      <Price>
-        <Total>200</Total>
-      </Price>
-      <Weight>3</Weight>
-      <Amount>5</Amount>
-    </Item>
+	<Item>
+	  <Name>TestItem</Name>
+	  <Description>Test the item</Description>
+	  <Price>
+		<Total>200</Total>
+	  </Price>
+	  <Weight>3</Weight>
+	  <Amount>5</Amount>
+	</Item>
   </Inventory>
   <BaseStats>
-    <UnitBaseStats>
-      <BaseStat type="Strength">10</BaseStat>
-      <BaseStat type="Dexterity">12</BaseStat>
-      <BaseStat type="Constitution">12</BaseStat>
-      <BaseStat type="Intelligence">10</BaseStat>
-      <BaseStat type="Wisdom">5</BaseStat>
-      <BaseStat type="Charisma">16</BaseStat>
-    </UnitBaseStats>
+	<UnitBaseStats>
+	  <BaseStat type="Strength">10</BaseStat>
+	  <BaseStat type="Dexterity">12</BaseStat>
+	  <BaseStat type="Constitution">12</BaseStat>
+	  <BaseStat type="Intelligence">10</BaseStat>
+	  <BaseStat type="Wisdom">5</BaseStat>
+	  <BaseStat type="Charisma">16</BaseStat>
+	</UnitBaseStats>
   </BaseStats>
   <Stats>
-    <Stats>
-      <Stat type="MaxUbi">30</Stat>
-      <Stat type="MaxHealth">50</Stat>
-      <Stat type="WalkDistance">30</Stat>
-      <Stat type="Armorclass">14</Stat>
-      <Stat type="Initiative">0</Stat>
-      <Stat type="CurrentUbi">30</Stat>
-      <Stat type="CurrentHealth">50</Stat>
-      <Stat type="RemainingWalkDistance">30</Stat>
-      <Stat type="TempHealth">0</Stat>
-    </Stats>
+	<Stats>
+	  <Stat type="MaxUbi">30</Stat>
+	  <Stat type="MaxHealth">50</Stat>
+	  <Stat type="WalkDistance">30</Stat>
+	  <Stat type="Armorclass">14</Stat>
+	  <Stat type="Initiative">0</Stat>
+	  <Stat type="CurrentUbi">30</Stat>
+	  <Stat type="CurrentHealth">50</Stat>
+	  <Stat type="RemainingWalkDistance">30</Stat>
+	  <Stat type="TempHealth">0</Stat>
+	</Stats>
   </Stats>
   <Experience>40000</Experience>
   <Classes>
-    <CharacterClass>
-      <Name>Fighter</Name>
-      <Level>7</Level>
-      <Proficiencies>
-        <Proficiency>Acrobatics</Proficiency>
-      </Proficiencies>
-      <Expertise>
-        <Expteriese>Arcana</Expteriese>
-      </Expertise>
-    </CharacterClass>
+	<CharacterClass>
+	  <Name>Fighter</Name>
+	  <Level>7</Level>
+	  <Proficiencies>
+		<Proficiency>Acrobatics</Proficiency>
+	  </Proficiencies>
+	  <Expertise>
+		<Expteriese>Arcana</Expteriese>
+	  </Expertise>
+	</CharacterClass>
   </Classes>
   <SubClasses>
-    <SubClass>
-      <Name>SubFighter</Name>
-      <Description>Fights the subs</Description>
-    </SubClass>
+	<SubClass>
+	  <Name>SubFighter</Name>
+	  <Description>Fights the subs</Description>
+	</SubClass>
   </SubClasses>
 </PlayerCharacter>
