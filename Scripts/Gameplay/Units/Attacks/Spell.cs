@@ -1,11 +1,12 @@
-using System.Collections.Generic;
-using System.Xml.Serialization;
+using Godot;
+using Godot.Collections;
 
-public class Spell : Attack
+[GlobalClass]
+public partial class Spell : Attack
 {
     public Spell() : this("hit", "hits enemy", [new Damage()], 5, 1, true, false, false, AbilityScoreTypes.Intelligence, 2, 1, 2, [new Element()], 2, 5) { }
-    public Spell(string name, string description, List<Damage> damages, int range, int radius, bool isAction, bool isBonusAction, bool
-        isReaction, AbilityScoreTypes statTypes, int level, int castTime, int duration, List<Element> elements, int amount, int ubiCost,
+    public Spell(string name, string description, Array<Damage> damages, int range, int radius, bool isAction, bool isBonusAction, bool
+        isReaction, AbilityScoreTypes statTypes, int level, int castTime, int duration, Array<Element> elements, int amount, int ubiCost,
         bool isHealing = false, LimitType limitType = LimitType.None, int limitAmount = 0, int refillAmount = 0)
     : base(name, description, damages, range, radius, isAction, isBonusAction, isReaction, statTypes)
     {
@@ -21,25 +22,27 @@ public class Spell : Attack
         RefillAmount = refillAmount;
     }
 
-    [XmlElement]
+    [ExportGroup("Spell Specific")]
+    [Export]
     public int Level { get; set; }
-    [XmlElement]
+    [Export]
     public int CastTime { get; set; }
-    [XmlElement]
+    [Export]
     public int Duration { get; set; }
-    [XmlElement]
-    public List<Element> Elements { get; set; }
-    [XmlElement]
+    [Export]
+    public Array<Element> Elements { get; set; }
+    [Export]
     public int Amount { get; set; }
-    [XmlElement]
+    [Export]
     public int UbiCost { get; set; }
-    [XmlElement]
+    [Export]
     public bool IsHealing { get; set; }
-    [XmlElement]
+    [ExportGroup("Limits")]
+    [Export]
     public LimitType LimitType { get; set; }
-    [XmlElement]
+    [Export]
     public int LimitAmount { get; set; }
-    [XmlElement]
+    [Export]
     public int RefillAmount { get; set; }
 
     public override int GetDamage()

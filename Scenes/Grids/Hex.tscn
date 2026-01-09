@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://02n2rsspf7ug"]
 
-[node name="Hex" type="Control"]
+[node name="Hex" type="Control" unique_id=605715564]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

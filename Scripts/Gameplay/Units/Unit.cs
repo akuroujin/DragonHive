@@ -1,20 +1,22 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
+using Godot.Collections;
 
-public abstract class Unit : ITurnPhases, IExportable, IRange
+[GlobalClass]
+public abstract partial class Unit : Resource, ITurnPhases, IExportable, IRange
 {
-    protected Unit(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<Equipment> equipment, AbilityScores baseStats, BaseStats stats)
+    protected Unit(string name, Stats stats)
     {
         Name = name;
+        _stats = stats;
+    }
+    protected Unit(string name, Stats stats, Array<Resistance> resistances, Array<Attack> attacks, Inventory inv, Array<Equipment> equipment)
+    {
+        Name = name;
+        _stats = stats;
         Resistances = resistances;
         Attacks = attacks;
-        Spells = spells;
-        Inventory = inventory;
-        this.Equipment = equipment;
-        AbilityScores = baseStats;
-        BaseStats = stats;
+        UnitInventory = inv;
+        Equipment = equipment;
     }
 
     #region Properties
@@ -30,85 +32,67 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
         }
     }
 
-
+    [Export]
     public string Name { get; set; }
+    private Stats _stats;
 
-    private List<Resistance> Resistances;
+    //TODO: Max health based on stats, class + roll
+    [Export]
+    public Stats UnitStats { get; private set; }
 
-    public List<Attack> Attacks { get; set; }
+    [Export]
+    public Array<Resistance> Resistances = new();
 
-    public List<Spell> Spells { get; set; }
-    public List<Item> Inventory { get; set; }
-    public List<Equipment> Equipment { get; set; }
-    private AbilityScores _abilityScores;
-    public AbilityScores AbilityScores
-    {
-        get => _abilityScores;
-        private set => _abilityScores = value;
-    }
-    public int this[AbilityScoreTypes stat]
-    {
-        get => _abilityScores[stat];
-        protected set => _abilityScores[stat] = value;
-    }
+    [Export]
+    public Array<Attack> Attacks { get; set; } = new();
 
-    private BaseStats _baseStats;
-    public BaseStats BaseStats
-    {
-        get => _baseStats;
-        set => _baseStats = value;
-    }
-    public int this[BaseStatTypes stat]
-    {
-        get => _baseStats[stat];
-        protected set => _baseStats[stat] = value;
-    }
-    private CombatStats _combatStats;
+    [Export]
+    public Inventory UnitInventory { get; set; } = new();
 
-    public int this[CombatStatTypes stat]
-    {
-        get => _combatStats[stat];
-        protected set => _combatStats[stat] = value;
-    }
-
+    [Export]
+    public Array<Equipment> Equipment { get; set; } = new();
     bool _didAction = false;
     bool _didBonusAction = false;
     Spell _currentAttack = null;
 
     #endregion
 
+    #region Singals
+    [Signal] public delegate void DeathEventHandler();
+    [Signal] public delegate void DamageTakenEventHandler();
+    #endregion
+
     #region Combat
 
     // Elements on this unit
-    [XmlIgnore]
-    public List<Element> takenElements = new List<Element>();
+
+    public Array<Element> takenElements = new Array<Element>();
 
     // Effect given to other units
-    [XmlIgnore]
-    public List<IEffect> givenEffects = new List<IEffect>();
+    public Array<BaseEffect> givenEffects = new Array<BaseEffect>();
 
     #endregion
 
     #region Methods
-    public abstract int GetProficiencyRoll(ProficiencyType proficiencyType);
+    public abstract int GetSkillRoll(SkillTypes proficiencyType);
 
-    public int GetPassiveProficiency(ProficiencyType proficiencyType)
+    public int GetPassiveProficiency(SkillTypes proficiencyType)
     {
-        return 10 + (this[(AbilityScoreTypes)proficiencyType] - 10) / 2;
+        return 10 + (_stats[(AbilityScoreTypes)proficiencyType] - 10) / 2;
     }
     public int GetStatRoll(AbilityScoreTypes stat)
     {
-        return Dice.Roll(DiceTypes.D20) + (this[stat] - 10) / 2;
+        return Dice.Roll(DiceTypes.D20) + (_stats[stat] - 10) / 2;
     }
     public virtual int GetSaveRoll(AbilityScoreTypes stat)
     {
-        return Dice.Roll(DiceTypes.D20) + this[stat] - 10;
+        return Dice.Roll(DiceTypes.D20) + _stats[stat] - 10;
     }
     protected virtual void Heal(int heal)
     {
-        this[CombatStatTypes.CurrentHealth] += heal;
-        if (this[CombatStatTypes.CurrentHealth] > this[BaseStatTypes.MaxHealth])
-            this[CombatStatTypes.CurrentHealth] = this[BaseStatTypes.MaxHealth];
+        _stats[CombatStatTypes.CurrentHealth] += heal;
+        if (_stats[CombatStatTypes.CurrentHealth] > _stats[BaseStatTypes.MaxHealth])
+            _stats[CombatStatTypes.CurrentHealth] = _stats[BaseStatTypes.MaxHealth];
     }
 
     protected virtual void TakeDamage(int damage)
@@ -118,19 +102,19 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
             Heal(damage);
             return;
         }
-        if (damage > this[CombatStatTypes.CurrentHealth])
+        if (damage > _stats[CombatStatTypes.CurrentHealth])
         {
             Die();
             return;
         }
-        if (this[CombatStatTypes.TempHealth] > 0)
+        if (_stats[CombatStatTypes.TempHealth] > 0)
         {
-            this[CombatStatTypes.TempHealth] -= damage;
-            damage = -this[CombatStatTypes.TempHealth];
-            if (this[CombatStatTypes.TempHealth] >= 0)
+            _stats[CombatStatTypes.TempHealth] -= damage;
+            damage = -_stats[CombatStatTypes.TempHealth];
+            if (_stats[CombatStatTypes.TempHealth] >= 0)
                 return;
         }
-        this[CombatStatTypes.CurrentHealth] -= damage;
+        _stats[CombatStatTypes.CurrentHealth] -= damage;
     }
 
     public void TakeOtherDamage(int damage, string reason)
@@ -158,8 +142,8 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
     public void AttackEnemy(Unit enemy, Attack attack)
     {
         int roll = Dice.Roll(DiceTypes.D20);
-        int statroll = roll + GetStatRoll(attack.statType);
-        if (statroll < enemy[BaseStatTypes.ArmorClass])
+        int statroll = roll + GetStatRoll(attack.StatType);
+        if (statroll < enemy.UnitStats[BaseStatTypes.ArmorClass])
         {
             return;
         }
@@ -169,6 +153,8 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
     }
     protected void Die()
     {
+
+        EmitSignalDeath();
         //TODO: change image to desaturated version
     }
 
@@ -176,7 +162,7 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
     public void StartTurn()
     {
         //TODO: Apply effects
-        foreach (IEffect effect in givenEffects)
+        foreach (BaseEffect effect in givenEffects)
         {
             effect.Tick();
         }
@@ -186,7 +172,7 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
 
     public void EndTurn()
     {
-        foreach (IEffect effect in givenEffects)
+        foreach (BaseEffect effect in givenEffects)
         {
             if (effect.GetDurationLeft() == 0)
             {
@@ -205,7 +191,7 @@ public abstract class Unit : ITurnPhases, IExportable, IRange
 
     public int GetRange()
     {
-        return this[CombatStatTypes.RemainingWalkDistance];
+        return _stats[CombatStatTypes.RemainingWalkDistance];
     }
 
     #endregion

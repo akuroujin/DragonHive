@@ -1,6 +1,8 @@
 using System;
-
-public class CombatStats
+using Godot;
+using Godot.Collections;
+[GlobalClass]
+public partial class CombatStats : Resource
 {
     public CombatStats(BaseStats stats)
     {
@@ -9,18 +11,25 @@ public class CombatStats
         this[CombatStatTypes.CurrentUbi] = stats[BaseStatTypes.MaxUbi];
         this[CombatStatTypes.TempHealth] = 0;
     }
-    public CombatStats(int CurrentHealth, int CurrentUbi, int RemainingWalkDistance)
+    public CombatStats(int CurrentHealth, int CurrentUbi, int RemainingWalkDistance = 0, int TempHealth = 0)
     {
         this[CombatStatTypes.CurrentHealth] = CurrentHealth;
         this[CombatStatTypes.CurrentUbi] = CurrentUbi;
-        this[CombatStatTypes.RemainingWalkDistance] = 0;
-        this[CombatStatTypes.TempHealth] = 0;
+        this[CombatStatTypes.RemainingWalkDistance] = RemainingWalkDistance;
+        this[CombatStatTypes.TempHealth] = TempHealth;
     }
-    private int[] _stats = new int[Enum.GetNames(typeof(CombatStatTypes)).Length];
+    [Export]
+    private Dictionary<CombatStatTypes, int> _stats = new()
+    {
+        {CombatStatTypes.CurrentHealth, 0},
+        {CombatStatTypes.CurrentUbi, 0},
+        {CombatStatTypes.RemainingWalkDistance, 30},
+        {CombatStatTypes.TempHealth, 10},
+    };
 
     public int this[CombatStatTypes stat]
     {
-        get => _stats[(int)stat];
-        set => _stats[(int)stat] = value;
+        get => _stats[stat];
+        set => _stats[stat] = value;
     }
 }

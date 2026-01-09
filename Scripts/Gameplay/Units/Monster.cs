@@ -1,27 +1,24 @@
 using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
-
-public class Monster : Unit
+using Godot;
+using Godot.Collections;
+[GlobalClass]
+public partial class Monster : Unit
 {
-    public Monster(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory, List<Equipment> equipment, AbilityScores baseStats, BaseStats stats, int challengeRating, HashSet<ProficiencyType> proficiencies) : base(name, resistances, attacks, spells, inventory, equipment, baseStats, stats)
+    public Monster(string name, Stats stats, Array<Resistance> resistances, Array<Attack> attacks, Inventory inv, Array<Equipment> equipment) : base(name, stats, resistances, attacks, inv, equipment)
     {
-        ChallengeRating = challengeRating;
-        Proficiencies = proficiencies;
     }
 
-
-    [XmlElement]
+    [Export]
     public int ChallengeRating { get; set; }
-    [XmlArray]
-    public HashSet<ProficiencyType> Proficiencies { get; set; }
+    [Export]
+    public Array<SkillTypes> Proficiencies { get; set; }
 
 
     private int ProficiencyBonus => 2 + (ChallengeRating - 1) / 4;
 
-    public override int GetProficiencyRoll(ProficiencyType proficiencyType)
+    public override int GetSkillRoll(SkillTypes proficiencyType)
     {
-        int roll = GetStatRoll((AbilityScoreTypes)proficiencyType);
+        int roll = GetStatRoll(Skills.SkillToAbility(proficiencyType));
         if (!Proficiencies.Contains(proficiencyType))
             return roll;
         return roll + ProficiencyBonus;

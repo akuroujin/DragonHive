@@ -1,16 +1,18 @@
-using System.Collections.Generic;
-using System.Xml.Serialization;
-public class Armor : Equipment
+using Godot;
+using Godot.Collections;
+[GlobalClass]
+public partial class Armor : Equipment
 {
-    public Armor() : this("Armor", "Desc", new Money(gold: 10), 10, ["something"], [], 13) { }
-    public Armor(string name, string description, Money price, int weight, List<string> properties, Dictionary<ProficiencyType, RollType> proficiencyModifiers,
+    public Armor(string name, string description, Money price, int weight, Array<string> properties, Dictionary<SkillTypes, RollType> proficiencyModifiers,
     int armorClass) :
      base(name, description, price, weight, properties, proficiencyModifiers)
     {
         ArmorClass = armorClass;
     }
 
-    [XmlElement]
+    [Export]
     public int ArmorClass { get; set; }
+    [Export]
+    public Array<Attack> Actions { get; set; }
 
 }

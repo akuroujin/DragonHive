@@ -1,14 +1,16 @@
 using System.Xml.Serialization;
-public class Damage : IDamage
+using Godot;
+[GlobalClass]
+public partial class Damage : Resource, IDamage
 {
-    public Damage() : this(1, new Resistance()) { }
-    public Damage(int damage, Resistance damageType)
+    public Damage() : this(1, DamageTypes.Slashing) { }
+    public Damage(int damage, DamageTypes damageType)
     {
         DamageBonus = damage;
         DamageType = damageType;
 
     }
-    public Damage(int diceAmount, DiceTypes diceType, int damageBonus, Resistance damageType)
+    public Damage(int diceAmount, DiceTypes diceType, int damageBonus, DamageTypes damageType)
     {
         DiceAmount = diceAmount;
         this.DiceType = diceType;
@@ -16,14 +18,14 @@ public class Damage : IDamage
         this.DamageType = damageType;
     }
 
-    [XmlElement]
-    public int DiceAmount { get; init; } = 0;
-    [XmlElement]
-    public DiceTypes DiceType { get; init; } = DiceTypes.FLAT;
-    [XmlElement]
-    public int DamageBonus { get; init; } = 0;
-    [XmlElement]
-    public Resistance DamageType { get; init; }
+    [Export]
+    public int DiceAmount { get; set; } = 0;
+    [Export]
+    public DiceTypes DiceType { get; set; } = DiceTypes.FLAT;
+    [Export]
+    public int DamageBonus { get; set; } = 0;
+    [Export]
+    public DamageTypes DamageType { get; set; }
 
 
 

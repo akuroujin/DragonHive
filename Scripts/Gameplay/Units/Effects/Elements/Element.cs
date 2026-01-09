@@ -1,31 +1,30 @@
 using System;
-using System.Collections.Generic;
+using Godot;
 
-
-public class Element : IEffect
+[GlobalClass]
+public partial class Element : BaseEffect
 {
 
     public ElementType Type { get; set; }
     public int CurrentStacks { get; set; }
     public int DurationLeft { get; set; }
-    public Unit AppliedTo { get; set; }
 
-    public void ApplyEffect()
-    {
-
-    }
-
-    public IEffect Finish()
+    public override void ApplyEffect()
     {
         throw new NotImplementedException();
     }
 
-    public int GetDurationLeft()
+    public override BaseEffect Finish()
     {
         throw new NotImplementedException();
     }
 
-    public void Tick()
+    public override int GetDurationLeft()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Tick()
     {
         throw new NotImplementedException();
     }

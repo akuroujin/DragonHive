@@ -1,23 +1,31 @@
-using System;
-using System.Xml.Serialization;
-using System.Linq;
-public class AbilityScores
+using Godot;
+using Godot.Collections;
+[GlobalClass]
+public partial class AbilityScores : Resource
 {
-    public AbilityScores(int str, int dex, int con, int intel, int wis, int cha)
+    public AbilityScores(int str = 0, int dex = 0, int con = 0, int intel = 0, int wis = 0, int cha = 0)
     {
-        this[AbilityScoreTypes.Strength] = str;
-        this[AbilityScoreTypes.Dexterity] = dex;
-        this[AbilityScoreTypes.Constitution] = con;
-        this[AbilityScoreTypes.Intelligence] = intel;
-        this[AbilityScoreTypes.Wisdom] = wis;
-        this[AbilityScoreTypes.Charisma] = cha;
+        // this[AbilityScoreTypes.Strength] = str;
+        // this[AbilityScoreTypes.Dexterity] = dex;
+        // this[AbilityScoreTypes.Constitution] = con;
+        // this[AbilityScoreTypes.Intelligence] = intel;
+        // this[AbilityScoreTypes.Wisdom] = wis;
+        // this[AbilityScoreTypes.Charisma] = cha;
     }
-
-    private int[] _stats = new int[Enum.GetNames(typeof(AbilityScoreTypes)).Length];
+    [Export]
+    Dictionary<AbilityScoreTypes, int> _stats = new()
+    {
+        {AbilityScoreTypes.Strength,0},
+        {AbilityScoreTypes.Dexterity,0},
+        {AbilityScoreTypes.Constitution,0},
+        {AbilityScoreTypes.Intelligence,0},
+        {AbilityScoreTypes.Wisdom,0},
+        {AbilityScoreTypes.Charisma,0}
+    };
 
     public int this[AbilityScoreTypes stat]
     {
-        get => _stats[(int)stat];
-        set => _stats[(int)stat] = value;
+        get => _stats[stat];
+        set => _stats[stat] = value;
     }
 }

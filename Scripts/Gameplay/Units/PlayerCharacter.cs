@@ -1,23 +1,24 @@
 using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Xml.Serialization;
+using Godot;
+using Godot.Collections;
 
-public class PlayerCharacter : Unit, IExportable
+
+[GlobalClass]
+public partial class PlayerCharacter : Unit, IExportable
 {
-    public PlayerCharacter(string name, List<Resistance> resistances, List<Attack> attacks, List<Spell> spells, List<Item> inventory,
-    List<Equipment> equipment, AbilityScores baseStats, BaseStats stats, int experience, List<CharacterClass> classes,
-    List<SubClass> subClasses) : base(name, resistances, attacks, spells, inventory, equipment, baseStats, stats)
+
+    public PlayerCharacter(string name, Stats stats, Array<Resistance> resistances, Array<Attack> attacks, Inventory inv, Array<Equipment> equipment)
+     : base(name, stats, resistances, attacks, inv, equipment)
     {
-        Experience = experience;
-        Classes = classes;
-        SubClasses = subClasses;
+    }
+
+    public PlayerCharacter(string name, Stats stats, int experience) : base(name, stats)
+    {
     }
 
     #region Properties
-    [XmlElement]
     public int Experience { get; set; }
-    [XmlIgnore]
+
     public int CharacterLevel
     {
         get
@@ -25,32 +26,31 @@ public class PlayerCharacter : Unit, IExportable
             return Level.GetLevel(Experience);
         }
     }
-    [XmlArray]
-    public List<CharacterClass> Classes { get; set; }
 
-    [XmlArray]
-    public List<SubClass> SubClasses { get; set; }
+    [Export]
+    public Array<CharacterClass> Classes { get; set; } = new();
 
-    [XmlIgnore]
+    [Export]
+    public Array<SubClass> SubClasses { get; set; } = new();
+
     public int ProficiencyBonus => 2 + (CharacterLevel - 1) / 4;
 
     #endregion
-    private bool isDowned => this[CombatStatTypes.CurrentHealth] <= 0;
+    private bool isDowned => UnitStats[CombatStatTypes.CurrentHealth] <= 0;
     private int deathFailCount = 0;
     private int deathSuccessCount = 0;
 
 
 
-    public override int GetProficiencyRoll(ProficiencyType proficiencyType)
+    public override int GetSkillRoll(SkillTypes skillType)
     {
-        int roll = GetStatRoll((AbilityScoreTypes)proficiencyType);
+        int roll = GetStatRoll(Skills.SkillToAbility(skillType));
         int value = roll;
-        if (Classes[0].Proficiencies.Contains(proficiencyType))
+        if (Classes[0].Proficiencies.Contains(skillType))
             value += ProficiencyBonus;
-        if (Classes[0].Expertise.Contains(proficiencyType))
+        if (Classes[0].Expertise.Contains(skillType))
             value += ProficiencyBonus;
         return value;
-
     }
     private void DeathThrow()
     {
@@ -106,6 +106,14 @@ public class PlayerCharacter : Unit, IExportable
         return base.GetSaveRoll(stat);
     }
 
+    public void ShortRest()
+    {
+        //TODO: Implement short rest
+    }
+    public void LongRest()
+    {
+        //TODO: Implement long rest
+    }
     //TODO: Implement export/import
     public override IExportable Import(string filePath)
     {

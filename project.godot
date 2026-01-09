@@ -8,13 +8,22 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
-config/name="DND tracker"
+config/name="DragonHive"
+config/description="Hexagonal combat tracker for Dungeons & Dragons."
 config/tags=PackedStringArray("projects")
 run/main_scene="uid://xvj1rsdq131a"
-config/features=PackedStringArray("4.5", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+config/features=PackedStringArray("4.6", "C#", "Forward Plus")
+boot_splash/bg_color=Color(0.14642666, 0.1292, 0.19, 1)
+boot_splash/use_filter=false
+boot_splash/image="uid://0h4t752vy6sp"
+config/icon="uid://wak87rt1ny8"
+boot_splash/minimum_display_time=2000
 
 [debug]
 
@@ -27,4 +36,10 @@ window/size/viewport_height=1080
 
 [dotnet]
 
-project/assembly_name="DND tracker"
+project/assembly_name="DragonHive"
+
+[file_customization]
+
+folder_colors={
+"res://Scripts/": "pink"
+}

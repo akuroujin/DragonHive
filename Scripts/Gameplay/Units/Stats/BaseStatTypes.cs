@@ -1,4 +1,4 @@
-public enum BaseStatTypes : int
+public enum BaseStatTypes
 {
     MaxHealth,
     MaxUbi,

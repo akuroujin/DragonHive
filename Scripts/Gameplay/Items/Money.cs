@@ -1,4 +1,7 @@
-public class Money
+using Godot;
+
+[GlobalClass]
+public partial class Money : Resource
 {
     public Money() : this(gold: 10) { }
     public Money(int copper = 0, int silver = 0, int electrum = 0, int gold = 0, int platinum = 0)
@@ -6,8 +9,8 @@ public class Money
         int total = copper + silver * 10 + electrum * 50 + gold * 100 + platinum * 1000;
         this.Total = total;
     }
-    public int Total = 0;
-    public int Copper => Total % 10;
+    [Export] public int Total = 0;
+    public int Copper => Total;
     public int Silver => Copper / 10 % 5;
     public int Electrum => Silver / 5 % 2;
     public int Gold => Electrum / 2 % 10;
@@ -20,4 +23,7 @@ public class Money
     public int TotalGold => TotalElectrum / 2;
     public int TotalPlatinum => TotalGold / 10;
 
+    public static Money operator +(Money a, int b) => new(a.Total + b);
+    public static Money operator *(Money a, int b) => new(a.Total * b);
+    public static Money operator /(Money a, int b) => new(a.Total / b);
 }

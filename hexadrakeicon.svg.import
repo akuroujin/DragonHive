@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wak87rt1ny8"
-path="res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+uid="uid://cbd3scp3kngcs"
+path="res://.godot/imported/hexadrakeicon.svg-a22eca9fd1fb887304b39c4b6feeba6d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icon.svg"
-dest_files=["res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"]
+source_file="res://hexadrakeicon.svg"
+dest_files=["res://.godot/imported/hexadrakeicon.svg-a22eca9fd1fb887304b39c4b6feeba6d.ctex"]
 
 [params]
 

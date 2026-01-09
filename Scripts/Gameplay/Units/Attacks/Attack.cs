@@ -1,11 +1,12 @@
-using System.Collections.Generic;
-using System.Xml.Serialization;
+using Godot;
+using Godot.Collections;
 
-[XmlRoot("Attack")]
-public class Attack : IExportable, IDamage
+
+[GlobalClass]
+public partial class Attack : Resource, IExportable, IDamage
 {
     public Attack() : this("hit", "hits enemy", [new Damage()], 5, 1, true, false, false, AbilityScoreTypes.Strength) { }
-    public Attack(string name, string description, List<Damage> damages, int range, int radius, bool isAction,
+    public Attack(string name, string description, Array<Damage> damages, int range, int radius, bool isAction,
         bool isBonusAction, bool isReaction, AbilityScoreTypes statTypes)
     {
         Name = name;
@@ -14,11 +15,10 @@ public class Attack : IExportable, IDamage
         Range = range;
         Radius = radius;
         IsAction = isAction;
+        IsBonusAction = isBonusAction;
         IsReaction = isReaction;
-        IsAction = isAction;
     }
 
-    [XmlAttribute]
     public string ID
     {
         get
@@ -29,35 +29,34 @@ public class Attack : IExportable, IDamage
             return value;
         }
     }
-    [XmlElement]
-    public string Name { get; init; }
-
-    [XmlElement]
-    public string Description { get; init; }
+    [Export] public string Name { get; set; }
+    [Export] public string Description { get; set; }
 
 
-    [XmlArray("Damages")]
-    [XmlArrayItem("Damage")]
-    public List<Damage> Damages { get; init; }
+    [ExportGroup("Properties")]
+    [Export] public Array<Damage> Damages { get; set; }
+    [Export] int RollModifier;
 
-    [XmlElement]
-    public int Range { get; init; }
+    [Export]
+    public int Range { get; set; }
 
 
-    [XmlElement]
-    int Radius { get; init; }
+    [Export]
+    public AbilityScoreTypes StatType { get; set; }
 
-    [XmlElement]
-    public bool IsAction { get; init; }
+    [Export]
+    int Radius { get; set; }
 
-    [XmlElement]
-    public bool IsBonusAction { get; init; }
+    [ExportGroup("ActionType")]
+    [Export]
+    public bool IsAction { get; set; }
 
-    [XmlElement]
-    public bool IsReaction { get; init; }
+    [Export]
+    public bool IsBonusAction { get; set; }
 
-    [XmlElement]
-    public AbilityScoreTypes statType { get; set; }
+    [Export]
+    public bool IsReaction { get; set; }
+
 
     public virtual int GetDamage()
     {

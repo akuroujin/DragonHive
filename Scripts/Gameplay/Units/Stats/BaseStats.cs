@@ -1,7 +1,9 @@
-using System;
-public class BaseStats
+using Godot;
+using Godot.Collections;
+[GlobalClass]
+public partial class BaseStats : Resource
 {
-    public BaseStats(int maxHealth, int maxUbi, int walkSpeed, int armorClass)
+    public BaseStats(int maxHealth = 0, int maxUbi = 0, int walkSpeed = 0, int armorClass = 0)
     {
         this[BaseStatTypes.MaxUbi] = maxUbi;
         this[BaseStatTypes.MaxHealth] = maxHealth;
@@ -9,15 +11,20 @@ public class BaseStats
         this[BaseStatTypes.ArmorClass] = armorClass;
         this[BaseStatTypes.Initiative] = 0;
     }
-    public BaseStats(int maxUbi, int maxHealth, int walkSpeed, int armorClass, int Initiative) : this(maxHealth, maxUbi, walkSpeed, armorClass)
+    [Export]
+    Dictionary<BaseStatTypes, int> _stats = new()
     {
-        this[BaseStatTypes.Initiative] = Initiative;
-    }
+        {BaseStatTypes.MaxHealth, 10},
+        {BaseStatTypes.MaxUbi, 10},
+        {BaseStatTypes.WalkDistance, 30},
+        {BaseStatTypes.SwimmingDistance, 10},
+        {BaseStatTypes.ArmorClass, 10},
+        {BaseStatTypes.Initiative, 0}
+    };
 
-    private int[] _stats = new int[Enum.GetNames(typeof(BaseStatTypes)).Length];
     public int this[BaseStatTypes stat]
     {
-        get => _stats[(int)stat];
-        set => _stats[(int)stat] = value;
+        get => _stats[stat];
+        set => _stats[stat] = value;
     }
 }

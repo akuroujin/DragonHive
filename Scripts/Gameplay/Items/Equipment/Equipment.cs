@@ -1,42 +1,26 @@
-using System.Collections.Generic;
-using System.Xml.Serialization;
-using System.Linq;
 
-public class Equipment : ItemEntry, IEquippable
+using Godot;
+using Godot.Collections;
+
+[GlobalClass]
+public partial class Equipment : ItemEntry, IEquippable
 {
     public Equipment() : this("Equipment", "Desc", new Money(), 10, ["prop"], []) { }
     public Equipment(string name, string description, Money price, int weight,
-    List<string> properties, Dictionary<ProficiencyType, RollType> proficiencyModifiers) :
+    Array<string> properties, Dictionary<SkillTypes, RollType> proficiencyModifiers) :
      base(name, description, price, weight)
     {
         Properties = properties;
-        ProficiencyModifiers = proficiencyModifiers;
+        SkillModifiers = proficiencyModifiers;
     }
 
-    [XmlArray]
-    [XmlArrayItem("Properties")]
-    public List<string> Properties { get; set; }
-    [XmlArray("ProficiencyModifiers")]
-    [XmlArrayItem("Modifier")]
-    public List<ProficiencyModifier> ProficiencyModifiersSerializable
-    {
-        get;
-        set;
-    }
 
-    [XmlIgnore]
-    public Dictionary<ProficiencyType, RollType> ProficiencyModifiers { get; set; }
-        = new();
+    [Export] public Stats ItemStats;
+    [Export] public Array<string> Properties { get; set; }
+    [Export] public Dictionary<SkillTypes, RollType> SkillModifiers { get; set; } = new();
 
-    // Helper class for serialization
-    public class ProficiencyModifier
-    {
-        [XmlElement("ProficiencyType")]
-        public ProficiencyType Type { get; set; }
 
-        [XmlElement("RollType")]
-        public RollType RollType { get; set; }
-    }
+
 
     //TODO: Implement IEquippable
     public void Equip()

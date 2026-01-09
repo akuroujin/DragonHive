@@ -1,7 +1,10 @@
-using System.Collections.Generic;
+using Godot.Collections;
+using Godot;
 
-class Inventory
+public partial class Inventory : Resource
 {
-    List<Item> Items;
-    List<Equipment> EquippedItems;
+    [Export]
+    Array<ItemSlot> Items;
+    [Export]
+    Array<Equipment> EquippedItems;
 }

@@ -1,21 +1,23 @@
 using System.Xml.Serialization;
+using Godot;
 
-public class Resistance
+[GlobalClass]
+public partial class Resistance : Resource
 {
-    public Resistance() : this(DamageType.Slashing) { }
-    public Resistance(DamageType type, bool isImmunity = false)
+    public Resistance() : this(DamageTypes.Slashing) { }
+    public Resistance(DamageTypes type, bool isImmunity = false)
     {
         Type = type;
         IsImmunity = isImmunity;
     }
-    [XmlElement]
-    public DamageType Type { get; init; }
-    [XmlElement]
-    public bool IsImmunity { get; init; }
+    [Export]
+    public DamageTypes Type { get; set; }
+    [Export]
+    public bool IsImmunity { get; set; }
 
 
 
-    public int GetResistanceDamage(int damage, DamageType type)
+    public int GetResistanceDamage(int damage, DamageTypes type)
     {
         if (type != Type)
             return damage;

@@ -1,5 +1,7 @@
 using System.Xml.Serialization;
-public class SubClass
+using Godot;
+[GlobalClass]
+public partial class SubClass : Resource
 {
     public SubClass() : this("SubClass", "Desc") { }
     public SubClass(string name, string description)
@@ -7,8 +9,8 @@ public class SubClass
         Name = name;
         Description = description;
     }
-    [XmlElement]
+    [Export]
     public string Name { get; set; }
-    [XmlElement]
+    [Export]
     public string Description { get; set; }
 }

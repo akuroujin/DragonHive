@@ -1,13 +1,14 @@
-using System.Collections.Generic;
+using Godot;
+using Godot.Collections;
 
-public class Weapon : Equipment
+[GlobalClass]
+public partial class Weapon : Equipment
 {
-    public Weapon(string name, string description, Money price, int weight, List<string> properties, Dictionary<ProficiencyType, RollType> proficiencyModifiers,
-    List<Attack> attacks)
+    public Weapon(string name, string description, Money price, int weight, Array<string> properties, Dictionary<SkillTypes, RollType> proficiencyModifiers,
+    Array<Attack> attacks)
     : base(name, description, price, weight, properties, proficiencyModifiers)
     {
         Attacks = attacks;
     }
-
-    public List<Attack> Attacks { get; set; }
+    [Export] public Array<Attack> Attacks { get; set; }
 }
